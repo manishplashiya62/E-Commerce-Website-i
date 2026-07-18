@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Products - ShopSphere</title>
+  
+  <!-- CSS Link Sheets -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/navbar.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
+  <link rel="stylesheet" href="assets/css/products.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+
+  <!-- Page Loader Overlay -->
+  <div class="page-loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Navbar Placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- Main Content -->
+  <main id="catalog-top">
+    <div class="container">
+      
+      <!-- Catalog Page Layout -->
+      <div class="products-page-container" style="margin-top: 2rem;">
+        
+        <!-- Sidebar Filters -->
+        <aside class="filter-sidebar">
+          <div class="filter-section" style="display:flex; justify-content:space-between; align-items:center;">
+            <h3 style="font-size:1.25rem;">Filters</h3>
+            <button class="btn btn-secondary" id="reset-filters-btn" style="padding: 0.25rem 0.75rem; font-size: 0.8rem; border-radius: var(--radius-sm);">Clear All</button>
+          </div>
+
+          <!-- Category Filter -->
+          <div class="filter-section">
+            <h4 class="filter-title">Categories</h4>
+            <div class="filter-options">
+              <label class="filter-checkbox-lbl">
+                <input type="checkbox" class="filter-checkbox category-cb" value="electronics">
+                Electronics
+              </label>
+              <label class="filter-checkbox-lbl">
+                <input type="checkbox" class="filter-checkbox category-cb" value="fashion">
+                Fashion
+              </label>
+              <label class="filter-checkbox-lbl">
+                <input type="checkbox" class="filter-checkbox category-cb" value="home-kitchen">
+                Home & Kitchen
+              </label>
+              <label class="filter-checkbox-lbl">
+                <input type="checkbox" class="filter-checkbox category-cb" value="books">
+                Books
+              </label>
+              <label class="filter-checkbox-lbl">
+                <input type="checkbox" class="filter-checkbox category-cb" value="beauty">
+                Beauty & Care
+              </label>
+              <label class="filter-checkbox-lbl">
+                <input type="checkbox" class="filter-checkbox category-cb" value="sports">
+                Sports & Outdoors
+              </label>
+            </div>
+          </div>
+
+          <!-- Brand Filter (Populated dynamically) -->
+          <div class="filter-section">
+            <h4 class="filter-title">Brands</h4>
+            <div class="filter-options" id="brand-filter-options">
+              <!-- Checkboxes loaded dynamically in products.js -->
+            </div>
+          </div>
+
+          <!-- Price Range Filter -->
+          <div class="filter-section">
+            <h4 class="filter-title">Price Range</h4>
+            <input type="range" class="price-range-control" id="price-range-slider" min="0" max="40000" step="500">
+            <div class="price-range-inputs">
+              <span>Max Price:</span>
+              <span class="price-box-val" id="price-max-display">₹40,000</span>
+            </div>
+          </div>
+
+          <!-- Availability Filter -->
+          <div class="filter-section">
+            <h4 class="filter-title">Availability</h4>
+            <div class="filter-options">
+              <label class="filter-checkbox-lbl">
+                <input type="checkbox" class="filter-checkbox" id="stock-only-cb">
+                In Stock Only
+              </label>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Catalog Container -->
+        <section class="catalog-section">
+          
+          <!-- Catalog Toolbar -->
+          <div class="catalog-header">
+            <div class="catalog-info">
+              Showing <span class="catalog-info-count" id="catalog-count">0</span> products
+            </div>
+            
+            <div class="catalog-controls">
+              <!-- Sorting Selection -->
+              <select class="sort-select" id="sort-select" aria-label="Sort products">
+                <option value="default">Sort by: Relevance</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating">Average Rating</option>
+                <option value="popularity">Popularity (Reviews)</option>
+              </select>
+
+              <!-- Layout Switcher toggles -->
+              <div class="layout-toggles">
+                <button class="layout-toggle-btn active" id="toggle-grid" aria-label="Grid View">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                </button>
+                <button class="layout-toggle-btn" id="toggle-list" aria-label="List View">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Products grid -->
+          <div class="products-grid" id="products-catalog-grid">
+            <!-- Cards loaded dynamically in products.js -->
+          </div>
+
+          <!-- Pagination elements -->
+          <div class="pagination-container" id="pagination-container">
+            <!-- Page buttons loaded dynamically -->
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="assets/js/app.js"></script>
+  <script type="module" src="assets/js/products.js"></script>
+</body>
+</html>

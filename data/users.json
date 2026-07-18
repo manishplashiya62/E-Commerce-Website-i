@@ -1,0 +1,77 @@
+{
+  "id": "usr_99",
+  "name": "Jane Doe",
+  "email": "jane.doe@example.com",
+  "phone": "+1 (555) 019-2834",
+  "addresses": [
+    {
+      "id": "addr_1",
+      "type": "Home",
+      "street": "123 Maple Street",
+      "city": "San Francisco",
+      "state": "California",
+      "zip": "94102",
+      "country": "United States",
+      "isDefault": true
+    },
+    {
+      "id": "addr_2",
+      "type": "Office",
+      "street": "100 Pine Avenue, Suite 400",
+      "city": "San Francisco",
+      "state": "California",
+      "zip": "94111",
+      "country": "United States",
+      "isDefault": false
+    }
+  ],
+  "orders": [
+    {
+      "orderId": "ORD-2026-9810",
+      "date": "2026-06-12T10:30:00Z",
+      "items": [
+        {
+          "productId": 2,
+          "name": "Chronos Smart Watch Pro",
+          "price": 8999,
+          "quantity": 1,
+          "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=60"
+        }
+      ],
+      "subtotal": 8999,
+      "tax": 450,
+      "shipping": 150,
+      "discount": 0,
+      "total": 9599,
+      "paymentMethod": "Credit Card",
+      "status": "Delivered"
+    },
+    {
+      "orderId": "ORD-2026-1042",
+      "date": "2026-07-02T15:45:00Z",
+      "items": [
+        {
+          "productId": 7,
+          "name": "Vitamin C Radiance Glow Serum",
+          "price": 1299,
+          "quantity": 2,
+          "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&auto=format&fit=crop&q=60"
+        },
+        {
+          "productId": 6,
+          "name": "The Alchemy of Time (Hardcover)",
+          "price": 599,
+          "quantity": 1,
+          "image": "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=800&auto=format&fit=crop&q=60"
+        }
+      ],
+      "subtotal": 3197,
+      "tax": 160,
+      "shipping": 0,
+      "discount": 300,
+      "total": 3057,
+      "paymentMethod": "PayPal",
+      "status": "Shipped"
+    }
+  ]
+}

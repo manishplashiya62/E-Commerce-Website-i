@@ -1,0 +1,377 @@
+[
+  {
+    "id": 1,
+    "name": "AeroPro Wireless Noise Cancelling Headphones",
+    "description": "Experience pure sound with AeroPro Wireless headphones featuring advanced Active Noise Cancellation (ANC), 40-hour battery life, and crystal-clear call quality.",
+    "price": 14999,
+    "originalPrice": 19999,
+    "category": "electronics",
+    "brand": "AeroSound",
+    "rating": 4.7,
+    "reviewsCount": 248,
+    "images": [
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=60",
+      "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=800&auto=format&fit=crop&q=60",
+      "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=800&auto=format&fit=crop&q=60"
+    ],
+    "inStock": true,
+    "featured": true,
+    "flashSale": true,
+    "newArrival": false,
+    "bestSeller": true,
+    "specs": {
+      "Type": "Over-Ear",
+      "Connectivity": "Bluetooth 5.2, 3.5mm Aux",
+      "Battery Life": "Up to 40 hours",
+      "Charging": "USB-C, Fast Charge (10 mins = 5 hours)",
+      "Drivers": "40mm Dynamic"
+    },
+    "features": [
+      "Hybrid Active Noise Cancellation",
+      "Ambient Sound Mode (Transparency)",
+      "Multipoint Connection (Pair 2 devices)",
+      "High-Res Audio Wireless Certified"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Chronos Smart Watch Pro",
+    "description": "Keep track of your active lifestyle with the Chronos Smart Watch Pro. Features always-on AMOLED display, SPO2 tracking, 24/7 heart rate monitoring, and built-in GPS.",
+    "price": 8999,
+    "originalPrice": 12999,
+    "category": "electronics",
+    "brand": "Chronos",
+    "rating": 4.5,
+    "reviewsCount": 182,
+    "images": [
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=60",
+      "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=800&auto=format&fit=crop&q=60"
+    ],
+    "inStock": true,
+    "featured": true,
+    "flashSale": false,
+    "newArrival": true,
+    "bestSeller": false,
+    "specs": {
+      "Display": "1.43\" AMOLED, 466x466 pixels",
+      "Water Resistance": "5ATM (up to 50m)",
+      "Sensors": "Heart Rate, SpO2, Accelerometer, Gyroscope",
+      "Battery": "Up to 10 days typical use"
+    },
+    "features": [
+      "100+ Sports Tracking Modes",
+      "Bluetooth Calling & Notifications",
+      "Sleep Quality Monitoring",
+      "Customizable Watch Faces"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Classic Tan Leather Jacket",
+    "description": "Timeless fashion crafted from premium lambskin leather. The Classic Tan Leather Jacket features a tailored fit, YKK zippers, and soft polyester lining.",
+    "price": 5999,
+    "originalPrice": 9999,
+    "category": "fashion",
+    "brand": "UrbanWeave",
+    "rating": 4.8,
+    "reviewsCount": 94,
+    "images": [
+      "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&auto=format&fit=crop&q=60",
+      "https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?w=800&auto=format&fit=crop&q=60"
+    ],
+    "inStock": true,
+    "featured": true,
+    "flashSale": false,
+    "newArrival": false,
+    "bestSeller": true,
+    "specs": {
+      "Material": "100% Genuine Lambskin Leather",
+      "Lining": "Polyester Satin",
+      "Closure": "YKK Asymmetric Zip",
+      "Pockets": "2 zippered hand pockets, 1 inner pocket"
+    },
+    "features": [
+      "Premium, soft-touch lambskin",
+      "Durable hardware and reinforced stitching",
+      "Weather-resistant top coat",
+      "Classic biker aesthetic"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Ergonomic Mesh Office Chair",
+    "description": "Work in comfort with our premium high-back office chair. Equipped with adjustable lumbar support, 3D armrests, and dynamic reclining mechanism.",
+    "price": 12499,
+    "originalPrice": 17999,
+    "category": "home-kitchen",
+    "brand": "ComfortSeat",
+    "rating": 4.6,
+    "reviewsCount": 315,
+    "images": [
+      "https://images.unsplash.com/photo-1505797149-43b0069ec26b?w=800&auto=format&fit=crop&q=60",
+      "https://images.unsplash.com/photo-1580481072645-022f9a6dbf27?w=800&auto=format&fit=crop&q=60"
+    ],
+    "inStock": true,
+    "featured": false,
+    "flashSale": true,
+    "newArrival": false,
+    "bestSeller": true,
+    "specs": {
+      "Frame": "Reinforced Nylon & Steel Base",
+      "Mesh Type": "Breathable ElastoMesh",
+      "Gas Lift": "Class 4 Certified",
+      "Weight Capacity": "Up to 135 kg"
+    },
+    "features": [
+      "Adjustable Headrest and 2D Lumbar Support",
+      "Multi-angle tilt lock with tension control",
+      "Silent, scratch-free nylon casters",
+      "Contoured waterfall seat edge to reduce leg fatigue"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Retro Espresso Machine",
+    "description": "Brew professional-grade espresso at home with this retro-styled 15-bar pump machine. Includes manual steam wand for rich milk frothing.",
+    "price": 7999,
+    "originalPrice": 11999,
+    "category": "home-kitchen",
+    "brand": "BaristaPro",
+    "rating": 4.4,
+    "reviewsCount": 89,
+    "images": [
+      "https://images.unsplash.com/photo-1517256064527-09c53b2d0bc6?w=800&auto=format&fit=crop&q=60"
+    ],
+    "inStock": true,
+    "featured": true,
+    "flashSale": false,
+    "newArrival": true,
+    "bestSeller": false,
+    "specs": {
+      "Pressure": "15-Bar Italian Pump",
+      "Water Tank": "1.2L Removable",
+      "Power": "1050 Watts",
+      "Filter Holders": "Single, Double, ESE Pods"
+    },
+    "features": [
+      "Thermoblock fast heating system",
+      "Adjustable milk frother for Cappuccinos & Lattes",
+      "Double drip tray for taller cups",
+      "Cup warmer surface on top"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "The Alchemy of Time (Hardcover)",
+    "description": "An international best-selling sci-fi fantasy novel by Sarah Jenkins. Explore a world where memories are traded as currency and time can be bent at a cost.",
+    "price": 599,
+    "originalPrice": 899,
+    "category": "books",
+    "brand": "Apex Press",
+    "rating": 4.9,
+    "reviewsCount": 412,
+    "images": [
+      "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=800&auto=format&fit=crop&q=60"
+    ],
+    "inStock": true,
+    "featured": false,
+    "flashSale": false,
+    "newArrival": true,
+    "bestSeller": true,
+    "specs": {
+      "Format": "Hardcover",
+      "Pages": "488 pages",
+      "Publisher": "Apex Press (Jan 2026)",
+      "Dimensions": "6 x 1.2 x 9 inches"
+    },
+    "features": [
+      "Includes exclusive author interview and map",
+      "Gilded gold edges with foil cover details",
+      "A must-read for fans of epic high fantasy"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Vitamin C Radiance Glow Serum",
+    "description": "Revitalize dull skin with 15% Pure Vitamin C, Hyaluronic Acid, and Ferulic Acid. Brightens dark spots, firms skin, and shields against pollution.",
+    "price": 1299,
+    "originalPrice": 1999,
+    "category": "beauty",
+    "brand": "PureGlow",
+    "rating": 4.3,
+    "reviewsCount": 560,
+    "images": [
+      "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&auto=format&fit=crop&q=60",
+      "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=800&auto=format&fit=crop&q=60"
+    ],
+    "inStock": true,
+    "featured": true,
+    "flashSale": true,
+    "newArrival": false,
+    "bestSeller": true,
+    "specs": {
+      "Volume": "30ml / 1 fl. oz.",
+      "Skin Type": "All Skin Types",
+      "Key Ingredients": "15% Vitamin C (L-Ascorbic Acid), Hyaluronic Acid, Vitamin E",
+      "Cruelty-Free": "Yes, Certified Leaping Bunny"
+    },
+    "features": [
+      "Reduces hyperpigmentation and acne scars",
+      "Provides intense hydration with micro-hyaluronic acid",
+      "Non-greasy, fast-absorbing water-gel texture",
+      "Fragrance-free and dermatologist tested"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Pro-Grip Carbon Tennis Racket",
+    "description": "Designed for advanced players seeking precision and power. Crafted from high-modulus carbon fiber matrix with a vibration-dampening grip.",
+    "price": 6499,
+    "originalPrice": 8999,
+    "category": "sports",
+    "brand": "ProGrip",
+    "rating": 4.6,
+    "reviewsCount": 73,
+    "images": [
+      "https://images.unsplash.com/photo-1617083934386-5709d22d375e?w=800&auto=format&fit=crop&q=60"
+    ],
+    "inStock": true,
+    "featured": false,
+    "flashSale": false,
+    "newArrival": false,
+    "bestSeller": false,
+    "specs": {
+      "Weight": "295g (Unstrung)",
+      "Head Size": "100 sq. in.",
+      "Length": "27 inches",
+      "String Pattern": "16 x 19",
+      "Material": "Carbon Fiber / Graphite"
+    },
+    "features": [
+      "Aerodynamic frame geometry for faster swings",
+      "Dampening gel in handle to reduce arm strain",
+      "Includes premium velvet carrying sleeve"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "LiteFit Knit Running Shoes",
+    "description": "Ultra-lightweight and highly breathable knit sneakers. Built with dual-density foam midsoles for supreme response and shock absorption.",
+    "price": 3499,
+    "originalPrice": 4999,
+    "category": "fashion",
+    "brand": "UrbanWeave",
+    "rating": 4.5,
+    "reviewsCount": 142,
+    "images": [
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=60"
+    ],
+    "inStock": true,
+    "featured": true,
+    "flashSale": true,
+    "newArrival": true,
+    "bestSeller": false,
+    "specs": {
+      "Upper": "Engineered Knit",
+      "Midsole": "Phy-Foam responsive cushioning",
+      "Outsole": "Carbon Rubber grips",
+      "Weight": "240g (Size 9)"
+    },
+    "features": [
+      "Seamless upper reduces hot spots and chafing",
+      "Flexible tread grooves for natural movement",
+      "Reflective accents for low-light visibility"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Smart UltraHD 4K Projector",
+    "description": "Bring the cinema to your living room. 4K HDR projection, built-in dual 10W speakers, Android TV interface, and auto-keystone correction.",
+    "price": 29999,
+    "originalPrice": 39999,
+    "category": "electronics",
+    "brand": "AeroSound",
+    "rating": 4.7,
+    "reviewsCount": 115,
+    "images": [
+      "https://images.unsplash.com/photo-1535016120720-40c646be5580?w=800&auto=format&fit=crop&q=60"
+    ],
+    "inStock": true,
+    "featured": true,
+    "flashSale": false,
+    "newArrival": true,
+    "bestSeller": true,
+    "specs": {
+      "Resolution": "4K UHD (3840x2160)",
+      "Brightness": "2200 ANSI Lumens",
+      "Contrast Ratio": "150,000:1",
+      "Light Source": "Laser LED (25,000 hrs lifespan)"
+    },
+    "features": [
+      "Auto Focus & Instant Keystone alignment",
+      "Preloaded streaming apps (Netflix, Prime, YouTube)",
+      "Chromecast and AirPlay support built-in",
+      "HDR10 and HLG decoding support"
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Stainless Steel Cookware Set (10-Piece)",
+    "description": "Professional tri-ply clad cookware with aluminum core layered between premium stainless steel. Ensures even heat distribution and durability.",
+    "price": 9499,
+    "originalPrice": 14999,
+    "category": "home-kitchen",
+    "brand": "BaristaPro",
+    "rating": 4.8,
+    "reviewsCount": 210,
+    "images": [
+      "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?w=800&auto=format&fit=crop&q=60"
+    ],
+    "inStock": true,
+    "featured": false,
+    "flashSale": false,
+    "newArrival": false,
+    "bestSeller": true,
+    "specs": {
+      "Material": "Tri-Ply Stainless Steel (18/10)",
+      "Compatibility": "Induction, Gas, Electric, Halogen, Oven",
+      "Oven Safe": "Up to 260°C (500°F)",
+      "Dishwasher Safe": "Yes"
+    },
+    "features": [
+      "Cool-grip riveted stainless steel handles",
+      "Tempered glass lids with steam vents",
+      "Internal measurement markings in pots"
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Therapeutic Sleep Weighted Blanket",
+    "description": "Improve your sleep quality and reduce stress naturally. Crafted from organic cotton shell and filled with premium micro-glass beads.",
+    "price": 3299,
+    "originalPrice": 4999,
+    "category": "home-kitchen",
+    "brand": "ComfortSeat",
+    "rating": 4.6,
+    "reviewsCount": 154,
+    "images": [
+      "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=800&auto=format&fit=crop&q=60"
+    ],
+    "inStock": false,
+    "featured": false,
+    "flashSale": false,
+    "newArrival": false,
+    "bestSeller": false,
+    "specs": {
+      "Weight": "6.8 kg (15 lbs)",
+      "Dimensions": "60 x 80 inches (Queen Size)",
+      "Material": "100% Organic Cotton",
+      "Filler": "Non-toxic Micro-Glass Beads"
+    },
+    "features": [
+      "7-layer design for optimal comfort and breathability",
+      "Grid pockets ensure even weight distribution",
+      "Includes 8 secure loops to tie to a duvet cover"
+    ]
+  }
+]

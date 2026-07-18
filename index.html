@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopSphere - Premium E-Commerce Store</title>
+  
+  <!-- CSS Link Sheets -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/navbar.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
+  <link rel="stylesheet" href="assets/css/home.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+
+  <!-- Page Loader Overlay -->
+  <div class="page-loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Navbar Placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      
+      <!-- Hero Slider Section -->
+      <section class="hero-slider-container">
+        <div class="hero-slider" id="hero-slider">
+          <!-- Slide 1 -->
+          <div class="hero-slide">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1600&auto=format&fit=crop&q=80" alt="Audio Collection">
+            <div class="hero-slide-content">
+              <span class="hero-slide-tag">New Season</span>
+              <h2 class="hero-slide-title">Sound that Defines You</h2>
+              <p class="hero-slide-desc">Discover the next level of audio with the new AeroPro noise-cancelling series. Unmatched comfort, crystal sound.</p>
+              <a href="products.html?category=electronics" class="btn btn-primary hero-slide-btn">Shop Now</a>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="hero-slide">
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&auto=format&fit=crop&q=80" alt="Fashion Trends">
+            <div class="hero-slide-content">
+              <span class="hero-slide-tag">Flash Promo</span>
+              <h2 class="hero-slide-title">Elegance in Every Detail</h2>
+              <p class="hero-slide-desc">Step into the summer in style. Enjoy up to 40% off on our handpicked luxury apparel collection today only.</p>
+              <a href="products.html?category=fashion" class="btn btn-primary hero-slide-btn">Explore Fashion</a>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="hero-slide">
+            <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=1600&auto=format&fit=crop&q=80" alt="Home Decor">
+            <div class="hero-slide-content">
+              <span class="hero-slide-tag">Exclusive</span>
+              <h2 class="hero-slide-title">Redefine Your Comfort</h2>
+              <p class="hero-slide-desc">Elevate your living space. Browse our premium selection of ergonomic furniture and smart appliances.</p>
+              <a href="products.html?category=home-kitchen" class="btn btn-primary hero-slide-btn">Shop Home & Kitchen</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Slider Controls -->
+        <button class="slider-arrow slider-arrow-left" id="slider-prev" aria-label="Previous Slide">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="slider-arrow slider-arrow-right" id="slider-next" aria-label="Next Slide">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+        <div class="slider-dots" id="slider-dots"></div>
+      </section>
+
+      <!-- Categories Section -->
+      <section class="section">
+        <h2 class="section-title">Shop by Category</h2>
+        <p class="section-subtitle">Find premium goods organized for your lifestyle</p>
+        <div class="categories-grid" id="categories-grid">
+          <!-- Categories loaded dynamically -->
+        </div>
+      </section>
+
+      <!-- Flash Sale Section -->
+      <section class="section">
+        <div class="flash-sale-header">
+          <div class="flash-title-wrapper">
+            <h2 class="section-title" style="margin: 0;">Flash Sale</h2>
+            <div class="flash-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              LIVE
+            </div>
+          </div>
+          <!-- Live Countdown Timer -->
+          <div class="timer-container" id="countdown-timer">
+            <div class="timer-box">
+              <span class="timer-val" id="timer-hours">23</span>
+              <span class="timer-lbl">Hrs</span>
+            </div>
+            <span class="timer-separator">:</span>
+            <div class="timer-box">
+              <span class="timer-val" id="timer-minutes">59</span>
+              <span class="timer-lbl">Mins</span>
+            </div>
+            <span class="timer-separator">:</span>
+            <div class="timer-box">
+              <span class="timer-val" id="timer-seconds">59</span>
+              <span class="timer-lbl">Secs</span>
+            </div>
+          </div>
+        </div>
+        <div class="products-grid" id="flash-sale-grid">
+          <!-- Flash sale cards loaded dynamically -->
+        </div>
+      </section>
+
+      <!-- Featured Products Section -->
+      <section class="section">
+        <h2 class="section-title">Featured Products</h2>
+        <p class="section-subtitle">Explore our handpicked curation of top-tier items</p>
+        <div class="products-grid" id="featured-grid">
+          <!-- Featured products loaded dynamically -->
+        </div>
+      </section>
+
+      <!-- Best Sellers Section -->
+      <section class="section">
+        <h2 class="section-title">Best Sellers</h2>
+        <p class="section-subtitle">Highly rated items flying off the shelves</p>
+        <div class="products-grid" id="bestseller-grid">
+          <!-- Best sellers loaded dynamically -->
+        </div>
+      </section>
+
+      <!-- Testimonials Section -->
+      <section class="section">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <p class="section-subtitle">Check reviews from our community of shoppers</p>
+        <div class="testimonials-grid">
+          <!-- Testimonial 1 -->
+          <div class="card testimonial-card">
+            <div class="rating-stars" style="color: var(--accent-color);">
+              ★★★★★
+            </div>
+            <p class="testimonial-quote">"Shopping here is extremely easy. The delivery is incredibly fast, and the customer support solved my address update in minutes! AeroPro headphones sound beautiful."</p>
+            <div class="testimonial-user">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" alt="Sarah Connor" class="testimonial-avatar">
+              <div class="testimonial-info">
+                <span class="testimonial-name">Sarah Connor</span>
+                <span class="testimonial-role">Verified Buyer</span>
+              </div>
+            </div>
+          </div>
+          <!-- Testimonial 2 -->
+          <div class="card testimonial-card">
+            <div class="rating-stars" style="color: var(--accent-color);">
+              ★★★★★
+            </div>
+            <p class="testimonial-quote">"The premium feel of the Chronos watch is unmatched at this price point. I love the dark mode on this store, it looks so polished and modern. Strongly recommend!"</p>
+            <div class="testimonial-user">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80" alt="James Miller" class="testimonial-avatar">
+              <div class="testimonial-info">
+                <span class="testimonial-name">James Miller</span>
+                <span class="testimonial-role">Loyal Customer</span>
+              </div>
+            </div>
+          </div>
+          <!-- Testimonial 3 -->
+          <div class="card testimonial-card">
+            <div class="rating-stars" style="color: var(--accent-color);">
+              ★★★★☆
+            </div>
+            <p class="testimonial-quote">"I bought the organic cotton weighted blanket. The material is very high quality and soft. It took 3 days to arrive, but it was well packaged. Excellent service."</p>
+            <div class="testimonial-user">
+              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop&q=80" alt="Diana Prince" class="testimonial-avatar">
+              <div class="testimonial-info">
+                <span class="testimonial-name">Diana Prince</span>
+                <span class="testimonial-role">Tech Engineer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="assets/js/app.js"></script>
+  <script type="module">
+    import { initHeroSlider } from './assets/js/slider.js';
+    import { formatPrice, renderStars, qs, qsa, showToast } from './assets/js/utils.js';
+    import { addToCart, toggleWishlist, isInWishlist } from './assets/js/storage.js';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // 1. Initialize Hero Slider
+      // Wait slightly to ensure components are loaded
+      setTimeout(() => {
+        initHeroSlider();
+        setupFlashSaleCountdown();
+      }, 500);
+
+      // 2. Fetch and render categories
+      try {
+        const catRes = await fetch('data/categories.json');
+        if (catRes.ok) {
+          const categories = await catRes.json();
+          renderCategories(categories);
+        }
+      } catch (err) {
+        console.error('Error fetching categories:', err);
+      }
+
+      // 3. Fetch and render products grids
+      try {
+        const prodRes = await fetch('data/products.json');
+        if (prodRes.ok) {
+          const products = await prodRes.json();
+          renderProductsList(products);
+        }
+      } catch (err) {
+        console.error('Error fetching products:', err);
+      }
+    });
+
+    // Render Categories
+    function renderCategories(categories) {
+      const container = qs('#categories-grid');
+      if (!container) return;
+      container.innerHTML = categories.map(cat => `
+        <div class="category-card" onclick="window.location.href='products.html?category=${cat.id}'">
+          <div class="category-img-wrapper">
+            <img src="${cat.image}" alt="${cat.name}">
+          </div>
+          <span class="category-name">${cat.name}</span>
+        </div>
+      `).join('');
+    }
+
+    // Render Product sections
+    function renderProductsList(products) {
+      const flashGrid = qs('#flash-sale-grid');
+      const featuredGrid = qs('#featured-grid');
+      const bestsellerGrid = qs('#bestseller-grid');
+
+      const flashProducts = products.filter(p => p.flashSale);
+      const featuredProducts = products.filter(p => p.featured);
+      const bestSellers = products.filter(p => p.bestSeller);
+
+      if (flashGrid) renderCardsInto(flashGrid, flashProducts);
+      if (featuredGrid) renderCardsInto(featuredGrid, featuredProducts);
+      if (bestsellerGrid) renderCardsInto(bestsellerGrid, bestSellers);
+
+      bindProductActionButtons(products);
+    }
+
+    function renderCardsInto(container, productsList) {
+      container.innerHTML = productsList.map(product => {
+        const favClass = isInWishlist(product.id) ? 'active' : '';
+        const badgeHtml = product.flashSale 
+          ? `<span class="badge badge-danger product-card-badge">Sale</span>` 
+          : (product.newArrival ? `<span class="badge badge-primary product-card-badge">New</span>` : '');
+        
+        return `
+          <div class="card product-card" data-id="${product.id}">
+            ${badgeHtml}
+            <button class="product-card-wishlist ${favClass}" data-action="wishlist" aria-label="Add to Wishlist">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="${isInWishlist(product.id) ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </button>
+            <div class="product-card-img" onclick="window.location.href='product-details.html?id=${product.id}'" style="cursor:pointer;">
+              <img src="${product.images[0]}" alt="${product.name}">
+            </div>
+            <div class="product-card-body">
+              <span class="product-card-category">${product.category}</span>
+              <h3 class="product-card-title" onclick="window.location.href='product-details.html?id=${product.id}'" style="cursor:pointer;">${product.name}</h3>
+              <div class="product-card-rating">
+                ${renderStars(product.rating)}
+                <span class="product-card-rating-count">(${product.reviewsCount})</span>
+              </div>
+              <div class="product-card-price-row">
+                <span class="product-card-price">${formatPrice(product.price)}</span>
+                ${product.originalPrice ? `<span class="product-card-original-price">${formatPrice(product.originalPrice)}</span>` : ''}
+              </div>
+            </div>
+            <div class="product-card-footer">
+              <button class="btn btn-primary product-card-btn" data-action="add-to-cart">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Bind Wishlist & Cart buttons
+    function bindProductActionButtons(products) {
+      // Add to Cart click handlers
+      qsa('[data-action="add-to-cart"]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const card = e.target.closest('.product-card');
+          const id = parseInt(card.getAttribute('data-id'));
+          const product = products.find(p => p.id === id);
+          if (product) {
+            addToCart(product, 1);
+            showToast(`${product.name} added to cart!`, 'success');
+          }
+        });
+      });
+
+      // Wishlist toggle click handlers
+      qsa('[data-action="wishlist"]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const btnEl = e.currentTarget;
+          const card = btnEl.closest('.product-card');
+          const id = parseInt(card.getAttribute('data-id'));
+          const product = products.find(p => p.id === id);
+          if (product) {
+            const added = toggleWishlist(product);
+            const svg = btnEl.querySelector('svg');
+            if (added) {
+              btnEl.classList.add('active');
+              svg.setAttribute('fill', 'currentColor');
+              showToast(`${product.name} added to wishlist!`, 'success');
+            } else {
+              btnEl.classList.remove('active');
+              svg.setAttribute('fill', 'none');
+              showToast(`${product.name} removed from wishlist.`, 'info');
+            }
+          }
+        });
+      });
+    }
+
+    // Flash sale countdown timer setup (+24 hours from initial load time)
+    function setupFlashSaleCountdown() {
+      // Save target time in local storage so it persists on page refreshes
+      let targetTime = localStorage.getItem('flash_sale_target');
+      if (!targetTime) {
+        targetTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+        localStorage.setItem('flash_sale_target', targetTime);
+      } else {
+        targetTime = parseInt(targetTime);
+        // If countdown has expired, renew it
+        if (targetTime < new Date().getTime()) {
+          targetTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+          localStorage.setItem('flash_sale_target', targetTime);
+        }
+      }
+
+      function updateTimer() {
+        const now = new Date().getTime();
+        const diff = targetTime - now;
+
+        if (diff <= 0) {
+          // Timer ended - reset
+          const newTarget = new Date().getTime() + (24 * 60 * 60 * 1000);
+          localStorage.setItem('flash_sale_target', newTarget);
+          return;
+        }
+
+        const hrs = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+        const hrsEl = qs('#timer-hours');
+        const minsEl = qs('#timer-minutes');
+        const secsEl = qs('#timer-seconds');
+
+        if (hrsEl) hrsEl.textContent = String(hrs).padStart(2, '0');
+        if (minsEl) minsEl.textContent = String(mins).padStart(2, '0');
+        if (secsEl) secsEl.textContent = String(secs).padStart(2, '0');
+      }
+
+      updateTimer();
+      setInterval(updateTimer, 1000);
+    }
+  </script>
+</body>
+</html>

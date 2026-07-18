@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - ShopSphere</title>
+  
+  <!-- CSS Link Sheets -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/navbar.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
+  <link rel="stylesheet" href="assets/css/checkout.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+
+  <!-- Page Loader Overlay -->
+  <div class="page-loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Navbar Placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container" style="margin-top: 1rem;">
+      <h1 style="font-size: 2.25rem; font-weight: 800; margin-bottom: 0.5rem; text-align: left;">Checkout</h1>
+      <p style="color: var(--text-secondary); margin-bottom: 2.5rem; text-align: left;">Complete your billing details and shipping selections below</p>
+      
+      <div class="checkout-page-container">
+        
+        <!-- Left Side: Forms steps -->
+        <div class="checkout-steps-container">
+          
+          <!-- Step Indicators -->
+          <div class="checkout-steps-nav">
+            <div class="step-indicator active" id="step-address-indicator">
+              <div class="step-num">1</div>
+              <span class="step-lbl">Shipping Address</span>
+            </div>
+            <div class="step-indicator" id="step-payment-indicator">
+              <div class="step-num">2</div>
+              <span class="step-lbl">Payment Method</span>
+            </div>
+          </div>
+
+          <!-- STEP 1 PANE: SHIPPING ADDRESS -->
+          <div class="checkout-step-pane active" id="pane-address">
+            <h2 class="checkout-pane-title">Select Shipping Address</h2>
+            
+            <!-- Saved Addresses grid -->
+            <div class="addresses-select-grid" id="addresses-select-grid">
+              <!-- Addresses list loaded dynamically -->
+            </div>
+
+            <!-- Add new address form -->
+            <div class="card" style="padding: 2rem; margin-top: 2.5rem;">
+              <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Add New Address</h3>
+              
+              <form id="add-address-form">
+                <div class="form-group" style="max-width: 250px;">
+                  <label class="form-label" for="addr-type">Address Type</label>
+                  <select class="form-control" id="addr-type" style="padding: 0.65rem 1rem;">
+                    <option value="Home">Home</option>
+                    <option value="Office">Office</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="addr-street">Street Address</label>
+                  <input type="text" class="form-control" id="addr-street" placeholder="Flat No., Building Name, Street Name" required>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                  <div class="form-group">
+                    <label class="form-label" for="addr-city">City</label>
+                    <input type="text" class="form-control" id="addr-city" placeholder="E.g. Mumbai" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="addr-state">State</label>
+                    <input type="text" class="form-control" id="addr-state" placeholder="E.g. Maharashtra" required>
+                  </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                  <div class="form-group">
+                    <label class="form-label" for="addr-zip">ZIP / Postal Code</label>
+                    <input type="text" class="form-control" id="addr-zip" placeholder="6-digit PIN code" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="addr-country">Country</label>
+                    <input type="text" class="form-control" id="addr-country" value="India" required>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-secondary" style="width: max-content; padding: 0.65rem 1.25rem;">Save & Select Address</button>
+              </form>
+            </div>
+
+            <!-- Action Button -->
+            <button class="btn btn-primary" id="btn-continue-payment" style="margin-top: 2rem; width: max-content; float: right;">
+              Continue to Payment
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+          </div>
+
+          <!-- STEP 2 PANE: PAYMENT METHOD -->
+          <div class="checkout-step-pane" id="pane-payment">
+            <h2 class="checkout-pane-title">Choose Payment Method</h2>
+
+            <div class="payment-methods-list">
+              <!-- Credit Card -->
+              <div class="payment-method-card active" data-method="card">
+                <input type="radio" name="payment-option" class="payment-radio" checked>
+                <div class="payment-method-lbl">Credit / Debit Card</div>
+                <div class="payment-method-icons">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                </div>
+              </div>
+
+              <!-- Credit Card Expansion Fields -->
+              <div class="card-details-fields" id="credit-card-details">
+                <div class="form-group" style="grid-column: 1/-1;">
+                  <label class="form-label" for="card-number">Card Number</label>
+                  <input type="text" class="form-control" id="card-number" placeholder="4532 9812 3456 7890" maxlength="19" required>
+                </div>
+                
+                <div class="form-group" style="grid-column: 1/3;">
+                  <label class="form-label" for="card-expiry">Expiry Date</label>
+                  <input type="text" class="form-control" id="card-expiry" placeholder="MM/YY" maxlength="5" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="card-cvv">CVV</label>
+                  <input type="password" class="form-control" id="card-cvv" placeholder="•••" maxlength="4" required>
+                </div>
+              </div>
+
+              <!-- Net Banking -->
+              <div class="payment-method-card" data-method="netbanking">
+                <input type="radio" name="payment-option" class="payment-radio">
+                <div class="payment-method-lbl">Net Banking</div>
+                <div class="payment-method-icons">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="21" x2="9" y2="9"></line><line x1="15" y1="21" x2="15" y2="9"></line><line x1="3" y1="9" x2="21" y2="9"></line></svg>
+                </div>
+              </div>
+
+              <!-- PayPal -->
+              <div class="payment-method-card" data-method="paypal">
+                <input type="radio" name="payment-option" class="payment-radio">
+                <div class="payment-method-lbl">PayPal</div>
+                <div class="payment-method-icons">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+                </div>
+              </div>
+
+              <!-- Cash on Delivery -->
+              <div class="payment-method-card" data-method="cod">
+                <input type="radio" name="payment-option" class="payment-radio">
+                <div class="payment-method-lbl">Cash on Delivery (COD)</div>
+                <div class="payment-method-icons">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div style="display:flex; justify-content:space-between; margin-top: 3rem;">
+              <button class="btn btn-secondary" id="btn-back-address" style="width: max-content;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Shipping
+              </button>
+              
+              <button class="btn btn-primary place-order-btn" id="btn-place-order" style="width: max-content;">
+                Place Order & Pay
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Side: Order Summary Card -->
+        <aside class="checkout-summary">
+          <div class="card checkout-summary-card">
+            <h3 class="summary-title" style="margin-bottom: 1.25rem;">Order Review</h3>
+            
+            <!-- Items Preview list -->
+            <div class="checkout-items-preview" id="checkout-items-preview">
+              <!-- Item cards loaded dynamically -->
+            </div>
+
+            <!-- Tallies -->
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span id="checkout-subtotal">₹0</span>
+            </div>
+            
+            <div class="summary-row discount-row" id="checkout-discount-row" style="display: none;">
+              <span id="checkout-discount-label">Discount</span>
+              <span id="checkout-discount-val">-₹0</span>
+            </div>
+
+            <div class="summary-row">
+              <span>Tax (5% GST)</span>
+              <span id="checkout-tax">₹0</span>
+            </div>
+
+            <div class="summary-row">
+              <span>Estimated Shipping</span>
+              <span id="checkout-shipping">₹0</span>
+            </div>
+
+            <div class="summary-row total-row">
+              <span>Grand Total</span>
+              <span id="checkout-total" style="color:var(--primary-color);">₹0</span>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="assets/js/app.js"></script>
+  <script type="module" src="assets/js/checkout.js"></script>
+</body>
+</html>

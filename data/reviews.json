@@ -1,0 +1,59 @@
+{
+  "1": [
+    {
+      "id": "rev_1_1",
+      "userName": "Alex Mercer",
+      "rating": 5,
+      "date": "2026-05-10",
+      "comment": "Absolutely incredible sound! The noise cancellation is top notch, rivaling brands twice the price. Comfort is great for 4+ hours of work."
+    },
+    {
+      "id": "rev_1_2",
+      "userName": "Elena Rostova",
+      "rating": 4,
+      "date": "2026-06-02",
+      "comment": "Very good sound quality, but the earcups are slightly small for my ears. The fast charging works exactly as advertised, saving me multiple times."
+    }
+  ],
+  "2": [
+    {
+      "id": "rev_2_1",
+      "userName": "Marcus Vance",
+      "rating": 5,
+      "date": "2026-06-20",
+      "comment": "Best smartwatch for the price! The AMOLED screen is super bright and crisp even in direct sunlight. Battery easily lasts 9 days."
+    },
+    {
+      "id": "rev_2_2",
+      "userName": "Sarah T.",
+      "rating": 4,
+      "date": "2026-07-01",
+      "comment": "Good tracking accuracy for running and swimming. The app takes a bit of time to sync occasionally, but overall, it's very reliable."
+    }
+  ],
+  "3": [
+    {
+      "id": "rev_3_1",
+      "userName": "David K.",
+      "rating": 5,
+      "date": "2026-04-18",
+      "comment": "This jacket is stunning. Smells like genuine leather, fits perfectly, and feels premium. Already received several compliments!"
+    }
+  ],
+  "7": [
+    {
+      "id": "rev_7_1",
+      "userName": "Chloe Bennett",
+      "rating": 5,
+      "date": "2026-06-11",
+      "comment": "I have been using this serum for 3 weeks and my dark spots are noticeably fading. It absorbed quickly and doesn't break me out."
+    },
+    {
+      "id": "rev_7_2",
+      "userName": "Melissa Wright",
+      "rating": 4,
+      "date": "2026-07-05",
+      "comment": "Good Vitamin C serum. Slight tingling when applying first, but works well. I keep it in the fridge so it doesn't oxidize."
+    }
+  ]
+}

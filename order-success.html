@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Successful - ShopSphere</title>
+  
+  <!-- CSS Link Sheets -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/navbar.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+
+  <style>
+    /* --- Success Layout --- */
+    .success-card {
+      max-width: 650px;
+      margin: 3rem auto 5rem;
+      padding: 3rem 2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    /* Animated Checkmark Badge */
+    .checkmark-wrapper {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: var(--success-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .checkmark-svg {
+      width: 45px;
+      height: 45px;
+      stroke: var(--success-color);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: drawCheck 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    }
+
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .success-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .success-desc {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 500px;
+      line-height: 1.6;
+    }
+
+    /* Receipt box */
+    .receipt-box {
+      width: 100%;
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+
+    .receipt-title {
+      font-weight: 800;
+      font-size: 1.1rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.95rem;
+    }
+
+    .receipt-lbl {
+      color: var(--text-secondary);
+    }
+
+    .receipt-val {
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page Loader Overlay -->
+  <div class="page-loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Navbar Placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      
+      <div class="card success-card">
+        <!-- Success Check Icon -->
+        <div class="checkmark-wrapper">
+          <svg class="checkmark-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+
+        <h1 class="success-title">Order Placed Successfully!</h1>
+        <p class="success-desc">
+          Thank you for shopping with us. Your payment has been processed and a confirmation invoice has been sent to your email.
+        </p>
+
+        <!-- Receipt Details Card -->
+        <div class="receipt-box" id="success-receipt-details">
+          <!-- Loaded Dynamically -->
+          <div style="text-align: center; color: var(--text-tertiary); padding: 1rem 0;">
+            Loading order details...
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+          <a href="profile.html#orders" class="btn btn-secondary">View Order History</a>
+          <a href="products.html" class="btn btn-primary">Continue Shopping</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="assets/js/app.js"></script>
+  <script type="module">
+    import { formatPrice, qs } from './assets/js/utils.js';
+    import { getOrders } from './assets/js/storage.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        loadSuccessReceipt();
+      }, 450);
+    });
+
+    function loadSuccessReceipt() {
+      // 1. Fetch order ID from URL params
+      const params = new URLSearchParams(window.location.search);
+      const orderId = params.get('orderId');
+
+      const orders = getOrders();
+      let order = null;
+
+      if (orderId) {
+        order = orders.find(o => o.orderId === orderId);
+      } else {
+        // Fallback: take latest order
+        order = orders[0];
+      }
+
+      const receiptContainer = qs('#success-receipt-details');
+      if (!receiptContainer) return;
+
+      if (!order) {
+        receiptContainer.innerHTML = `<div style="text-align:center;color:var(--danger-color);padding:1rem 0;">Unable to locate order invoice. Please check your profile.</div>`;
+        return;
+      }
+
+      // Calculate estimate delivery date (+3 days from order date)
+      const orderDate = new Date(order.date);
+      const deliveryDate = new Date(orderDate);
+      deliveryDate.setDate(orderDate.getDate() + 3);
+
+      const deliveryString = deliveryDate.toLocaleDateString('en-IN', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      const addr = order.shippingAddress;
+      const addrString = addr 
+        ? `${addr.street}, ${addr.city}, ${addr.state} - ${addr.zip}` 
+        : 'Saved Address';
+
+      receiptContainer.innerHTML = `
+        <h3 class="receipt-title">Payment & Shipment Receipt</h3>
+        
+        <div class="receipt-row">
+          <span class="receipt-lbl">Order Reference ID</span>
+          <span class="receipt-val" style="color: var(--primary-color);">${order.orderId}</span>
+        </div>
+
+        <div class="receipt-row">
+          <span class="receipt-lbl">Estimated Delivery</span>
+          <span class="receipt-val" style="color: var(--success-color);">${deliveryString}</span>
+        </div>
+
+        <div class="receipt-row">
+          <span class="receipt-lbl">Payment Mode</span>
+          <span class="receipt-val">${order.paymentMethod}</span>
+        </div>
+
+        <div class="receipt-row">
+          <span class="receipt-lbl">Shipping Address</span>
+          <span class="receipt-val" style="text-align: right; max-width: 320px; font-weight: normal; font-size: 0.9rem;">
+            ${addrString}
+          </span>
+        </div>
+
+        <div class="receipt-row" style="border-top: 1px dashed var(--border-color); padding-top: 0.75rem; margin-top: 0.25rem;">
+          <span class="receipt-lbl" style="font-weight: 700;">Amount Paid</span>
+          <span class="receipt-val" style="font-size: 1.1rem; color: var(--primary-color);">${formatPrice(order.total)}</span>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

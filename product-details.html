@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details - ShopSphere</title>
+  
+  <!-- CSS Link Sheets -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/navbar.css">
+  <link rel="stylesheet" href="assets/css/footer.css">
+  <link rel="stylesheet" href="assets/css/product-details.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+
+  <!-- Page Loader Overlay -->
+  <div class="page-loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Navbar Placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      
+      <!-- Product details placeholder -->
+      <div id="product-details-content">
+        <!-- Loaded Dynamically -->
+        <div style="padding: 5rem 0; text-align: center; color: var(--text-secondary);">
+          <h3>Loading product specifications...</h3>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer Placeholder -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script type="module" src="assets/js/app.js"></script>
+  <script type="module">
+    import { formatPrice, renderStars, qs, qsa, showToast } from './assets/js/utils.js';
+    import { addToCart, toggleWishlist, isInWishlist, getItem, setItem } from './assets/js/storage.js';
+
+    let currentProduct = null;
+    let selectedRating = 5;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Wait for app.js to initialize navigation elements
+      setTimeout(async () => {
+        await loadProductDetails();
+      }, 400);
+    });
+
+    async function loadProductDetails() {
+      // 1. Parse product ID from URL
+      const params = new URLSearchParams(window.location.search);
+      const id = parseInt(params.get('id'));
+
+      if (isNaN(id)) {
+        renderProductNotFound();
+        return;
+      }
+
+      // 2. Fetch products and filter
+      try {
+        const prodRes = await fetch('data/products.json');
+        if (!prodRes.ok) throw new Error();
+        const products = await prodRes.json();
+        currentProduct = products.find(p => p.id === id);
+      } catch (err) {
+        console.error('Failed to load products database:', err);
+      }
+
+      if (!currentProduct) {
+        renderProductNotFound();
+        return;
+      }
+
+      // Update page title
+      document.title = `${currentProduct.name} - ShopSphere`;
+
+      // 3. Render HTML details layout
+      renderProductInfo();
+
+      // 4. Bind listeners (Zoom, Qty, Add to Cart, Tabs)
+      setupZoomEffect();
+      setupThumbnailSelectors();
+      setupQuantityControl();
+      setupWishlistAction();
+      setupCartAction();
+      setupTabs();
+      
+      // 5. Load and Render reviews
+      await loadReviews(id);
+      setupReviewForm();
+    }
+
+    function renderProductNotFound() {
+      const container = qs('#product-details-content');
+      container.innerHTML = `
+        <div style="padding: 6rem 2rem; text-align: center; background-color: var(--bg-primary); border-radius: var(--radius-lg); border: 1px solid var(--border-color); margin-top: 2rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--danger-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1.5rem;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+          <h2 style="margin-bottom: 0.5rem;">Product Not Found</h2>
+          <p style="color: var(--text-secondary); margin-bottom: 2rem;">The item you are searching for does not exist or has been removed from our catalog.</p>
+          <a href="products.html" class="btn btn-primary">Return to Catalog</a>
+        </div>
+      `;
+    }
+
+    function renderProductInfo() {
+      const container = qs('#product-details-content');
+      const favClass = isInWishlist(currentProduct.id) ? 'active' : '';
+      const stockBadge = currentProduct.inStock 
+        ? `<span class="badge badge-success">In Stock</span>`
+        : `<span class="badge badge-danger">Out of Stock</span>`;
+
+      // Create thumbnails HTML
+      const thumbHtml = currentProduct.images.map((img, idx) => `
+        <button class="thumbnail-btn ${idx === 0 ? 'active' : ''}" data-index="${idx}" aria-label="View Image ${idx + 1}">
+          <img src="${img}" alt="Thumbnail ${idx + 1}">
+        </button>
+      `).join('');
+
+      // Create specifications rows
+      const specRows = Object.entries(currentProduct.specs).map(([name, val]) => `
+        <tr>
+          <td class="spec-name">${name}</td>
+          <td class="spec-val">${val}</td>
+        </tr>
+      `).join('');
+
+      // Create features checklist
+      const featureChecklist = currentProduct.features.map(feat => `
+        <div class="feature-item">
+          <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>${feat}</span>
+        </div>
+      `).join('');
+
+      container.innerHTML = `
+        <div class="details-container">
+          <!-- Left Column: Image previews -->
+          <div class="gallery-wrapper">
+            <div class="main-image-container" id="main-image-zoom">
+              <img src="${currentProduct.images[0]}" alt="${currentProduct.name}" id="main-preview-img">
+            </div>
+            <div class="thumbnails-row">
+              ${thumbHtml}
+            </div>
+          </div>
+
+          <!-- Right Column: Info Panel -->
+          <div class="info-panel">
+            <span class="details-brand">${currentProduct.brand}</span>
+            <h1 class="details-title">${currentProduct.name}</h1>
+            
+            <div class="details-rating-row">
+              ${renderStars(currentProduct.rating)}
+              <span style="font-weight: 700;">${currentProduct.rating}</span>
+              <span style="color: var(--text-tertiary);">|</span>
+              <span style="color: var(--text-secondary); font-size: 0.9rem;">${currentProduct.reviewsCount} Customer Reviews</span>
+              <span style="margin-left: auto;">${stockBadge}</span>
+            </div>
+
+            <div class="details-price-row">
+              <span class="details-price">${formatPrice(currentProduct.price)}</span>
+              ${currentProduct.originalPrice ? `<span class="details-original-price">${formatPrice(currentProduct.originalPrice)}</span>` : ''}
+              ${currentProduct.originalPrice ? `<span class="badge badge-danger" style="margin-left: 0.5rem; font-size: 0.85rem; font-weight:700;">${Math.round((1 - currentProduct.price/currentProduct.originalPrice)*100)}% OFF</span>` : ''}
+            </div>
+
+            <p class="details-desc">${currentProduct.description}</p>
+
+            <!-- Quantity & Actions Box -->
+            <div class="actions-row">
+              <div class="quantity-selector">
+                <button class="qty-btn" id="qty-minus" aria-label="Decrease Quantity">&minus;</button>
+                <input type="text" class="qty-input" id="qty-input" value="1" readonly>
+                <button class="qty-btn" id="qty-plus" aria-label="Increase Quantity">&plus;</button>
+              </div>
+
+              <div class="actions-buttons">
+                <button class="btn btn-primary action-add-cart" id="btn-add-cart" ${!currentProduct.inStock ? 'disabled' : ''}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                  ${currentProduct.inStock ? 'Add to Cart' : 'Out of Stock'}
+                </button>
+                
+                <button class="btn btn-secondary action-wishlist ${favClass}" id="btn-wishlist" aria-label="Wishlist">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="${isInWishlist(currentProduct.id) ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Key Features Checklist -->
+            <div style="margin-top: 0.5rem;">
+              <h4 style="font-size: 1.05rem; font-weight:700; margin-bottom: 0.75rem;">Highlights</h4>
+              <div class="features-list">
+                ${featureChecklist}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Details / Specs / Reviews Tab System -->
+        <div class="details-tabs">
+          <div class="tab-headers">
+            <button class="tab-btn active" data-tab="tab-specs">Technical Specifications</button>
+            <button class="tab-btn" data-tab="tab-reviews" id="tab-reviews-heading">Reviews (${currentProduct.reviewsCount})</button>
+          </div>
+
+          <!-- Specs Tab -->
+          <div class="tab-pane active" id="tab-specs">
+            <div class="card" style="padding: 1.5rem;">
+              <table class="specs-table">
+                <tbody>
+                  ${specRows}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Reviews Tab -->
+          <div class="tab-pane" id="tab-reviews">
+            <!-- Reviews details populated dynamically -->
+            <div id="reviews-section-content"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Interactive hover zoom
+    function setupZoomEffect() {
+      const zoomContainer = qs('#main-image-zoom');
+      const previewImg = qs('#main-preview-img');
+      if (!zoomContainer || !previewImg) return;
+
+      zoomContainer.addEventListener('mousemove', (e) => {
+        const rect = zoomContainer.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const pctX = (x / rect.width) * 100;
+        const pctY = (y / rect.height) * 100;
+        
+        previewImg.style.transformOrigin = `${pctX}% ${pctY}%`;
+        previewImg.style.transform = 'scale(1.8)';
+      });
+
+      zoomContainer.addEventListener('mouseleave', () => {
+        previewImg.style.transform = 'scale(1)';
+        previewImg.style.transformOrigin = 'center center';
+      });
+    }
+
+    // Thumbnail buttons binding
+    function setupThumbnailSelectors() {
+      qsa('.thumbnail-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          qsa('.thumbnail-btn').forEach(b => b.classList.remove('active'));
+          const btnEl = e.currentTarget;
+          btnEl.classList.add('active');
+          
+          const idx = parseInt(btnEl.getAttribute('data-index'));
+          const previewImg = qs('#main-preview-img');
+          if (previewImg && currentProduct) {
+            previewImg.src = currentProduct.images[idx];
+          }
+        });
+      });
+    }
+
+    // Quantity selectors (+/-)
+    function setupQuantityControl() {
+      const minus = qs('#qty-minus');
+      const plus = qs('#qty-plus');
+      const input = qs('#qty-input');
+
+      if (!minus || !plus || !input) return;
+
+      minus.addEventListener('click', () => {
+        let val = parseInt(input.value);
+        if (val > 1) {
+          input.value = --val;
+        }
+      });
+
+      plus.addEventListener('click', () => {
+        let val = parseInt(input.value);
+        input.value = ++val;
+      });
+    }
+
+    // Wishlist click
+    function setupWishlistAction() {
+      const btn = qs('#btn-wishlist');
+      if (!btn) return;
+      
+      btn.addEventListener('click', () => {
+        const added = toggleWishlist(currentProduct);
+        const svg = btn.querySelector('svg');
+        if (added) {
+          btn.classList.add('active');
+          svg.setAttribute('fill', 'currentColor');
+          showToast(`${currentProduct.name} added to wishlist!`, 'success');
+        } else {
+          btn.classList.remove('active');
+          svg.setAttribute('fill', 'none');
+          showToast(`${currentProduct.name} removed from wishlist.`, 'info');
+        }
+      });
+    }
+
+    // Add to Cart click
+    function setupCartAction() {
+      const btn = qs('#btn-add-cart');
+      const qtyInput = qs('#qty-input');
+      
+      if (!btn || !qtyInput) return;
+
+      btn.addEventListener('click', () => {
+        const qty = parseInt(qtyInput.value);
+        addToCart(currentProduct, qty);
+        showToast(`${qty} &times; ${currentProduct.name} added to cart!`, 'success');
+        qtyInput.value = 1; // reset
+      });
+    }
+
+    // Tab switcher
+    function setupTabs() {
+      qsa('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          qsa('.tab-btn').forEach(b => b.classList.remove('active'));
+          qsa('.tab-pane').forEach(p => p.classList.remove('active'));
+
+          const activeBtn = e.currentTarget;
+          activeBtn.classList.add('active');
+          
+          const paneId = activeBtn.getAttribute('data-tab');
+          const activePane = qs(`#${paneId}`);
+          if (activePane) activePane.classList.add('active');
+        });
+      });
+    }
+
+    // Load reviews, merging system defaults with user writes
+    async function loadReviews(productId) {
+      let systemReviews = [];
+      try {
+        const revRes = await fetch('data/reviews.json');
+        if (revRes.ok) {
+          const reviewsMap = await revRes.json();
+          systemReviews = reviewsMap[productId] || [];
+        }
+      } catch (err) {
+        console.error('Error fetching reviews map:', err);
+      }
+
+      // Pull submitted local reviews from local storage
+      const localReviews = getItem(`reviews_local_${productId}`, []);
+      const allReviewsList = [...localReviews, ...systemReviews];
+
+      renderReviewsLayout(allReviewsList);
+    }
+
+    function renderReviewsLayout(reviews) {
+      const pane = qs('#reviews-section-content');
+      if (!pane) return;
+
+      // Update reviews tab title count
+      const heading = qs('#tab-reviews-heading');
+      if (heading) heading.textContent = `Reviews (${reviews.length})`;
+
+      if (reviews.length === 0) {
+        pane.innerHTML = `
+          <div style="padding: 3rem; text-align: center; color: var(--text-secondary); background-color: var(--bg-primary); border-radius: var(--radius-lg); border:1px solid var(--border-color);">
+            No customer reviews yet. Be the first to share your experience!
+          </div>
+          ${getWriteReviewFormHtml()}
+        `;
+        return;
+      }
+
+      // Calculations for average summary & histograms
+      const totalRatingsCount = reviews.length;
+      const sumRatings = reviews.reduce((sum, r) => sum + r.rating, 0);
+      const avgRating = (sumRatings / totalRatingsCount).toFixed(1);
+
+      const ratingCounts = { 5:0, 4:0, 3:0, 2:0, 1:0 };
+      reviews.forEach(r => {
+        if (ratingCounts[r.rating] !== undefined) ratingCounts[r.rating]++;
+      });
+
+      const histogramRowsHtml = [5,4,3,2,1].map(starNum => {
+        const count = ratingCounts[starNum];
+        const pct = totalRatingsCount > 0 ? Math.round((count / totalRatingsCount) * 100) : 0;
+        return `
+          <div class="histogram-row">
+            <span class="histogram-star-lbl">${starNum} Star</span>
+            <div class="histogram-bar-bg">
+              <div class="histogram-bar-fg" style="width: ${pct}%"></div>
+            </div>
+            <span class="histogram-percent">${pct}%</span>
+          </div>
+        `;
+      }).join('');
+
+      // Create reviews cards list
+      const cardsHtml = reviews.map(rev => `
+        <div class="card review-card">
+          <div class="review-card-header">
+            <div class="review-author-info">
+              <span class="review-author-name">${rev.userName}</span>
+              <span class="review-date">${new Date(rev.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            </div>
+            ${renderStars(rev.rating)}
+          </div>
+          <p class="review-comment">${rev.comment}</p>
+        </div>
+      `).join('');
+
+      pane.innerHTML = `
+        <div class="reviews-summary">
+          <div class="summary-score-box">
+            <span class="summary-avg">${avgRating}</span>
+            <div class="summary-stars">${renderStars(parseFloat(avgRating))}</div>
+            <span class="summary-count">Based on ${totalRatingsCount} ratings</span>
+          </div>
+
+          <div class="rating-histogram">
+            ${histogramRowsHtml}
+          </div>
+        </div>
+
+        <h4 style="font-size: 1.15rem; font-weight:700; margin-bottom: 1.25rem;">Customer Opinions</h4>
+        <div class="review-cards-list">
+          ${cardsHtml}
+        </div>
+
+        ${getWriteReviewFormHtml()}
+      `;
+    }
+
+    function getWriteReviewFormHtml() {
+      return `
+        <div class="card write-review-card">
+          <h4 class="write-review-title">Write a Customer Review</h4>
+          <form id="submit-review-form">
+            <div class="form-group">
+              <label class="form-label">Overall Rating</label>
+              <div class="rating-input-stars" id="rating-stars-input">
+                <svg data-val="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg data-val="2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg data-val="3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg data-val="4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg data-val="5" class="selected" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="review-username">Your Name</label>
+              <input type="text" class="form-control" id="review-username" placeholder="E.g. John Doe" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="review-comment">Review Content</label>
+              <textarea class="form-control" id="review-comment" rows="4" placeholder="What did you like or dislike? How does it fit?" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: max-content;">Submit Review</button>
+          </form>
+        </div>
+      `;
+    }
+
+    // Rating star clicks and form submission
+    function setupReviewForm() {
+      const container = qs('#rating-stars-input');
+      if (!container) return;
+
+      const stars = qsa('svg', container);
+      stars.forEach(star => {
+        star.addEventListener('click', (e) => {
+          const val = parseInt(e.currentTarget.getAttribute('data-val'));
+          selectedRating = val;
+          
+          stars.forEach(s => {
+            const sVal = parseInt(s.getAttribute('data-val'));
+            if (sVal <= val) {
+              s.classList.add('selected');
+            } else {
+              s.classList.remove('selected');
+            }
+          });
+        });
+      });
+
+      // Submit listener
+      const form = qs('#submit-review-form');
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const nameInput = qs('#review-username');
+          const commentInput = qs('#review-comment');
+
+          if (!nameInput.value.trim() || !commentInput.value.trim()) return;
+
+          const newReview = {
+            id: 'rev_local_' + Math.random().toString(36).substr(2, 9),
+            userName: nameInput.value.trim(),
+            rating: selectedRating,
+            date: new Date().toISOString().split('T')[0],
+            comment: commentInput.value.trim()
+          };
+
+          // Save locally
+          const localList = getItem(`reviews_local_${currentProduct.id}`, []);
+          localList.unshift(newReview);
+          setItem(`reviews_local_${currentProduct.id}`, localList);
+
+          showToast('Review submitted successfully! Thank you.', 'success');
+          
+          // Re-load and re-render the list immediately
+          loadReviews(currentProduct.id);
+        });
+      }
+    }
+  </script>
+</body>
+</html>
